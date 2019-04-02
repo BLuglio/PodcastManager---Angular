@@ -8,10 +8,14 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
+import { HeaderComponent } from './header/header.component';
+import { PodcastListComponent } from './podcast-list/podcast-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    PodcastListComponent
   ],
   imports: [
     BrowserModule,
