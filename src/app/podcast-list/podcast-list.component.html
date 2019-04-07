@@ -1,7 +1,7 @@
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 18rem;" *ngFor="let podcast of podcasts">
   <!--<img class="card-img-top" src=`${  }` alt="Card image cap">-->
   <div class="card-body">
-    <h5 class="card-title">{{ title }}</h5>
-    <p class="card-text">{{ podcastDescription }}</p>
+    <h5 class="card-title">{{ podcast.podcastTitle }}</h5>
+    <p class="card-text">{{ podcast.podcastDescription }}</p>
   </div>
 </div>

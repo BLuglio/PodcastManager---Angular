@@ -8,17 +8,19 @@ import { PodcastService } from '../podcast.service';
 })
 export class PodcastListComponent implements OnInit {
 
+  public podcasts: any = [];
   public title: string;
   public podcastDescription: string;
 
   constructor(private podcastService: PodcastService) { }
 
   ngOnInit() {
-    let retrieved = this.podcastService.retrievePodcasts();
-    retrieved.subscribe(data => {
+    this.podcastService.retrievePodcasts().subscribe(data => {
       if(data){
-      this.podcastDescription = data.data.rss.podcastDescription;
-      this.title = data.data.rss.podcastTitle;
+        this.podcasts = data.data.multipleRss;
+        console.log(this.podcasts)
+      //this.podcastDescription = data.data.rss.podcastDescription;
+      //this.title = data.data.rss.podcastTitle;
     }
     })
 

@@ -21,18 +21,27 @@ export class PodcastService {
     }
   `;
 
+  MultipleRssQuery = gql`
+    query MultipleRss($urls: [String]!) {
+      multipleRss(urls: $urls) {
+        podcastTitle,
+        podcastDescription
+      }
+    }
+  `;
+  
+  private list = ["https://gearclubpodcast.libsyn.com/rss", "https://feeds.megaphone.fm/working-class-audio"];
   public notifyPodcasts = new BehaviorSubject<any>(undefined);
 
   constructor(private apollo: Apollo) { }
 
   retrievePodcasts(): any {
-    const url = "http://feeds.megaphone.fm/working-class-audio";
-    this.apollo.query({
-      query: this.RssQuery,
+    this.apollo.watchQuery({
+      query: this.MultipleRssQuery,
       variables: {
-        url: url
+        urls: this.list
       }
-    }).subscribe(data => {
+    }).valueChanges.subscribe(data => {
       this.notifyPodcasts.next(data);
     })
     return this.notifyPodcasts
