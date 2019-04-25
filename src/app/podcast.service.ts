@@ -12,6 +12,8 @@ export class PodcastService {
   RssQuery = gql`
     query Rss($url: String!) {
       rss(url: $url) {
+        id,
+        url,
         podcastTitle,
         podcastDescription,
         episodes {
@@ -24,26 +26,77 @@ export class PodcastService {
   MultipleRssQuery = gql`
     query MultipleRss($urls: [String]!) {
       multipleRss(urls: $urls) {
+        id,
+        url,
         podcastTitle,
-        podcastDescription
+        podcastDescription,
+        imageUrl,
+        episodes {
+          title,
+          description,
+          date
+        }
       }
     }
   `;
   
   private list = ["https://gearclubpodcast.libsyn.com/rss", "https://feeds.megaphone.fm/working-class-audio"];
-  public notifyPodcasts = new BehaviorSubject<any>(undefined);
+  public selectedUrl;
+  public notifyPodcastList = new BehaviorSubject<any>(undefined);
+  public notifyPodcastItem = new BehaviorSubject<any>(undefined);
 
   constructor(private apollo: Apollo) { }
 
   retrievePodcasts(): any {
-    this.apollo.watchQuery({
-      query: this.MultipleRssQuery,
-      variables: {
-        urls: this.list
-      }
-    }).valueChanges.subscribe(data => {
-      this.notifyPodcasts.next(data);
-    })
-    return this.notifyPodcasts
+    try {
+      //loads info relative to a single podcast accessing the cache instead of calling the server
+      console.log('accessed cache');
+      const data = this.apollo.getClient().readQuery({
+        query: this.MultipleRssQuery,
+        variables: {
+          urls: this.list
+        }
+      });
+      this.notifyPodcastList.next({msg: "cache", data: data});
+    }catch(err) {
+      //calls the server
+      console.log('data not found in cache');
+      this.apollo.watchQuery({
+        query: this.MultipleRssQuery,
+        variables: {
+          urls: this.list
+        }
+      }).valueChanges.subscribe(data => {
+        this.notifyPodcastList.next({msg: "no-cache", data: data});
+      })
+    }
+    return this.notifyPodcastList;   
+  }
+
+  loadPodcast(id): any {
+    try {
+      //loads info relative to a single podcast accessing the cache instead of calling the server
+      console.log('accessed cache');
+      const data = this.apollo.getClient().readQuery({
+        query: this.MultipleRssQuery,
+        variables: {
+          urls: this.list
+        }
+      });
+      this.notifyPodcastItem.next(data);
+      return this.notifyPodcastItem;
+    }catch(err) {
+      //calls the server
+      console.log('data not found in cache');
+      this.apollo.watchQuery({
+        query: this.RssQuery,
+        variables: {
+          urls: this.list
+        }
+      }).valueChanges.subscribe(data => {
+        this.notifyPodcastItem.next(data);
+      })
+      return this.notifyPodcastItem;
+    } 
   }
 }

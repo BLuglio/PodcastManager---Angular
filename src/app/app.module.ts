@@ -5,17 +5,16 @@ import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HeaderComponent } from './header/header.component';
-import { PodcastListComponent } from './podcast-list/podcast-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    PodcastListComponent
+    routingComponents,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

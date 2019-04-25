@@ -1,7 +1,14 @@
-<div class="card" style="width: 18rem;" *ngFor="let podcast of podcasts">
-  <!--<img class="card-img-top" src=`${  }` alt="Card image cap">-->
-  <div class="card-body">
-    <h5 class="card-title">{{ podcast.podcastTitle }}</h5>
-    <p class="card-text">{{ podcast.podcastDescription }}</p>
+<div class="container">
+  <div class="row">
+      <div class="card" style="width: 18rem;" *ngFor="let podcast of podcasts">
+        <a (click)="onSelect(podcast)">
+        <img class="card-img-top" [src]=podcast.imageUrl alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{ podcast.podcastTitle }}</h5>
+          <p class="card-text">{{ podcast.podcastDescription }}</p>
+        </div>
+      </a>
+      </div>
   </div>
 </div>
+
