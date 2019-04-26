@@ -21,7 +21,6 @@ export class PodcastListComponent implements OnInit {
         switch(data.msg){
           case("cache"):
             this.podcasts = data.data.multipleRss;
-            //console.log(this.podcasts);
             break;
           case("no-cache"):
             this.podcasts = data.data.data.multipleRss;
@@ -29,10 +28,8 @@ export class PodcastListComponent implements OnInit {
             for(let item of this.podcasts) {
               item.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.imageUrl);
             }
-            //console.log(this.podcasts);
             break;
         }
-        
       }
     })
   }

@@ -17,7 +17,10 @@ export class PodcastService {
         podcastTitle,
         podcastDescription,
         episodes {
-          title
+          title,
+          description,
+          date,
+          content
         }
       }
     }
@@ -34,7 +37,8 @@ export class PodcastService {
         episodes {
           title,
           description,
-          date
+          date,
+          content
         }
       }
     }
@@ -49,14 +53,14 @@ export class PodcastService {
 
   retrievePodcasts(): any {
     try {
-      //loads info relative to a single podcast accessing the cache instead of calling the server
-      console.log('accessed cache');
+      //loads info relative to a single podcast accessing the cache instead of calling the server   
       const data = this.apollo.getClient().readQuery({
         query: this.MultipleRssQuery,
         variables: {
           urls: this.list
         }
       });
+      console.log('accessed cache');
       this.notifyPodcastList.next({msg: "cache", data: data});
     }catch(err) {
       //calls the server
@@ -76,25 +80,31 @@ export class PodcastService {
   loadPodcast(id): any {
     try {
       //loads info relative to a single podcast accessing the cache instead of calling the server
-      console.log('accessed cache');
-      const data = this.apollo.getClient().readQuery({
+      let cacheData = this.apollo.getClient().readQuery({
         query: this.MultipleRssQuery,
         variables: {
           urls: this.list
         }
       });
-      this.notifyPodcastItem.next(data);
+      console.log('accessed cache');
+      let newData;
+      for(let elem of cacheData.multipleRss){
+        if(elem.id === id){
+          newData = elem;
+        }
+      }
+      this.notifyPodcastItem.next({msg: "cache", data: newData});
       return this.notifyPodcastItem;
     }catch(err) {
       //calls the server
-      console.log('data not found in cache');
+      console.log("error " + err)
       this.apollo.watchQuery({
         query: this.RssQuery,
         variables: {
-          urls: this.list
+          url: this.selectedUrl
         }
       }).valueChanges.subscribe(data => {
-        this.notifyPodcastItem.next(data);
+        this.notifyPodcastItem.next({msg: "no-cache", data: data});
       })
       return this.notifyPodcastItem;
     } 
