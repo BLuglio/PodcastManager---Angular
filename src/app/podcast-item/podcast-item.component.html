@@ -1,14 +1,41 @@
 
+  <div class="container" style="margin-top: 20px;">
   <div class="row">
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" [src]=podcast.imageUrl alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{ podcast.podcastTitle }}</h5>
-          <p class="card-text">{{ podcast.podcastDescription }}</p>
-          <!-- TODO: mostrare lista di episodi (10 per pagina?) con player 
-          <audio src="podcast.content">
-          </audio>
-          -->
+      <div class="col" style="text-align: center;">
+        <img [src]=podcast.imageUrl class="img-fluid" alt="Responsive image">
+        <h5 class="card-title">{{ podcast.podcastTitle }}</h5>
+        <p class="card-text">{{ podcast.podcastDescription }}</p>
         </div>
-      </div>
+        <div class="col">
+          <div>
+            <audio controls style="width: 100%;">
+              <source src="horse.mp3" type="audio/mpeg">
+            </audio>    
+          </div>
+          <div *ngFor="let episode of episodesToShow">
+              <mat-accordion>
+                  <mat-expansion-panel >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{ episode.title }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>{{ episode.description }}</p>
+                    <p>{{ episode.date }}</p>
+                  </mat-expansion-panel>
+                  <hr>
+                </mat-accordion>
+          </div>
+            <div class="row">
+              <div class="col">
+                <a (click)="update(cursor + 1)" *ngIf="nextVisible === true">next</a>
+              </div>
+              <div class="col">
+                <a (click)="update(cursor - 1)" *ngIf="previousVisible === true">previous</a>
+              </div>
+            </div>
+        </div>
   </div>
+</div>
+
+
