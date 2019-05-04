@@ -12,6 +12,8 @@ export class PodcastItemComponent implements OnInit {
 
   public podcast;
   private id;
+  public selectedEpisode;
+  public isSelected;
   public episodesToShow = [];
   public cursor;
   public nextVisible: boolean;
@@ -32,9 +34,10 @@ export class PodcastItemComponent implements OnInit {
             case("no-cache"):
               this.podcast = data.data.data.Rss;
               this.podcast.episodes = this.sanitizeContent(this.podcast.episodes);
-              //sanitizing the image url
+              //sanitizing the image and audio url 
               for(let item of this.podcast) {
                 item.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(item.imageUrl);
+                //item.content = this.sanitizer.bypassSecurityTrustResourceUrl(item.content);
               }
               break;
           }
@@ -47,15 +50,26 @@ export class PodcastItemComponent implements OnInit {
             this.episodesToShow[i] = this.podcast.episodes[i];
           } 
         }
-      })       
+        this.selectedEpisode = this.episodesToShow[0].content;
+        this.isSelected = this.episodesToShow[0].title;
+      });       
   }
 
   sanitizeContent(episodes) {
     for(let item of episodes) {
-      item.content = this.sanitizer.bypassSecurityTrustResourceUrl(item.content);
+      //item.content = this.sanitizer.bypassSecurityTrustResourceUrl(item.content);
       item.description = item.description.replace(/<\/?[^>]+(>|$)/g, "");
     }
     return episodes;
+  }
+
+  selectEpisode(index) {
+   //console.log((this.cursor*10) + index);
+   let player = <HTMLAudioElement>document.getElementById("player");
+   let source = <HTMLSourceElement>document.getElementById("playerSrc");
+   source.src = this.episodesToShow[index].content;
+   this.isSelected = this.episodesToShow[index].title;
+   player.load(); 
   }
 
   update(number){

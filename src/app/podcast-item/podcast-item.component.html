@@ -6,13 +6,13 @@
         <h5 class="card-title">{{ podcast.podcastTitle }}</h5>
         <p class="card-text">{{ podcast.podcastDescription }}</p>
         </div>
-        <div class="col">
+        <div class="col" style="max-width: 600px; min-width: 320px;">
           <div>
-            <audio controls style="width: 100%;">
-              <source src="horse.mp3" type="audio/mpeg">
+            <audio id="player" controls style="width: 100%;">
+              <source id="playerSrc" [src]="selectedEpisode" type="audio/mpeg">
             </audio>    
           </div>
-          <div *ngFor="let episode of episodesToShow">
+          <div *ngFor="let episode of episodesToShow; let i = index;">
               <mat-accordion>
                   <mat-expansion-panel >
                     <mat-expansion-panel-header>
@@ -22,6 +22,10 @@
                     </mat-expansion-panel-header>
                     <p>{{ episode.description }}</p>
                     <p>{{ episode.date }}</p>
+                    <div style="float: right;">
+                      <button class="btn btn-success control-first" (click) = "selectEpisode(i)">Listen</button>
+                      <button class="btn btn-info control">Save for later</button>
+                    </div>
                   </mat-expansion-panel>
                   <hr>
                 </mat-accordion>
