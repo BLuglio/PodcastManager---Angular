@@ -15,3 +15,5 @@ LAUNCH INSTRUCTIONS:
   2) npm install
   3) ng serve
   
+The associated backend is PodcastManager---Server
+  
