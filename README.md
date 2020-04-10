@@ -7,7 +7,7 @@ This is the frontend of the podcast organizer app I built using Angular. It uses
 TODOS:
   1) Improve styling in main page
   2) Position fixed on podcast image and description in the podcast page
-  3) 
+  3) Advanced functions such as "Listen Later" and notifications
   4) Register & Login
 
 LAUNCH INSTRUCTIONS:
