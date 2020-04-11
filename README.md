@@ -1,6 +1,6 @@
 PodcastManager - Frontend 
 
-This is the frontend of the podcast organizer app I built using Angular. It uses the exceptional Apollo Client GraphQL library.
+This is the frontend of the podcast organizer app I built using Angular. It uses the exceptional Apollo Client GraphQL library to fetch and handle all the interactions with the backend.
 
 ![](github/preview.png)
 
