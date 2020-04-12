@@ -44,7 +44,7 @@ export class PodcastService {
     }
   `;
   
-  private list = ["https://gearclubpodcast.libsyn.com/rss", "https://feeds.megaphone.fm/working-class-audio"];
+  private list = ["https://gearclubpodcast.libsyn.com/rss", "https://feeds.megaphone.fm/working-class-audio", "https://theaudioprogrammer.com/feed/podcast/"];
   public selectedUrl;
   public notifyPodcastList = new BehaviorSubject<any>(undefined);
   public notifyPodcastItem = new BehaviorSubject<any>(undefined);
