@@ -6,6 +6,8 @@ This is a screenshot of the app on a very early stage:
 
 ![](github/preview.png)
 
+The purpose is to have a repository of my favourite podcasts, presented with a Netflix-like layout. 
+
 LAUNCH INSTRUCTIONS:
   1) install angular cli (of course!)
   2) npm install
