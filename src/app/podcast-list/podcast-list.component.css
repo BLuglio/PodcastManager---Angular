@@ -1,0 +1,13 @@
+.row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 0 4%;
+}
+
+.card {
+    flex: 0 0 22%;
+}
+
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.05); z-index: 10000; }

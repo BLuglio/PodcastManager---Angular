@@ -44,12 +44,14 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HeaderComponent } from './header/header.component';
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    HeaderComponent
+    HeaderComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
