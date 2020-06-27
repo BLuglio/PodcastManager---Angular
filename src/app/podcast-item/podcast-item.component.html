@@ -6,9 +6,9 @@
         <h5 class="card-title">{{ podcast.podcastTitle }}</h5>
         <p class="card-text">{{ podcast.podcastDescription }}</p>
         </div>
-        <div class="col" style="max-width: 600px; min-width: 320px;">
+        <div class="col" style="max-width: 600px; min-width: 320px; margin-bottom: 100px;">
           <div>
-            <audio id="player" controls style="width: 100%;">
+            <audio id="player" controls style="height: 0px;">
               <source id="playerSrc" [src]="selectedEpisode" type="audio/mpeg">
             </audio>    
           </div>
